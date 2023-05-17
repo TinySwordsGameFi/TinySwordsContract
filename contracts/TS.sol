@@ -187,28 +187,28 @@ contract TS {
         uint256 timestamp = tribe[user].timestamp;
         require(timestamp > 0, "User is not registered");
 
-        if (stakingInfo[user].farmers > 0) {
-            tribe[user].money2 += (block.timestamp/3600 - stakingInfo[user].farmerTime / 3600) * 50 * stakingInfo[user].farmers;
-            stakingInfo[user].farmerTime = block.timestamp;
-        }
-
         if (stakingInfo[user].woodmans > 0) {
-            tribe[user].money2 += (block.timestamp/3600 - stakingInfo[user].woodmanTime / 3600) * 150 * stakingInfo[user].woodmans;
+            tribe[user].money2 += (block.timestamp - stakingInfo[user].woodmanTime) / 3600 * 50 * stakingInfo[user].woodmans;
             stakingInfo[user].woodmanTime = block.timestamp;
         }
 
+        if (stakingInfo[user].farmers > 0) {
+            tribe[user].money2 += (block.timestamp - stakingInfo[user].farmerTime) / 3600 * 150 * stakingInfo[user].farmers;
+            stakingInfo[user].farmerTime = block.timestamp;
+        }
+
         if (stakingInfo[user].hunters > 0) {
-            tribe[user].money2 += (block.timestamp/3600 - stakingInfo[user].hunterTime / 3600) * 625 * stakingInfo[user].hunters;
+            tribe[user].money2 += (block.timestamp - stakingInfo[user].hunterTime) / 3600 * 625 * stakingInfo[user].hunters;
             stakingInfo[user].hunterTime = block.timestamp;
         }
 
         if (stakingInfo[user].miners > 0) {
-            tribe[user].money2 += (block.timestamp/3600 - stakingInfo[user].minerTime / 3600) * 1600 * stakingInfo[user].miners;
+            tribe[user].money2 += (block.timestamp - stakingInfo[user].minerTime) / 3600 * 1600 * stakingInfo[user].miners;
             stakingInfo[user].minerTime = block.timestamp;
         }
 
         if (stakingInfo[user].fighters > 0) {
-            tribe[user].money2 += (block.timestamp/3600 - stakingInfo[user].fighterTime / 3600) * 5600 * stakingInfo[user].fighters;
+            tribe[user].money2 += (block.timestamp - stakingInfo[user].fighterTime) / 3600 * 5600 * stakingInfo[user].fighters;
             stakingInfo[user].fighterTime = block.timestamp;
         }
     }
